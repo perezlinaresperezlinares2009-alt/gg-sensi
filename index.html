@@ -18,7 +18,7 @@ h1{
     margin:20px;
 }
 
-/* GRID BOTONES */
+/* GRID */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -31,10 +31,10 @@ h1{
     padding:20px;
     border-radius:20px;
     text-align:center;
-    font-size:18px;
+    font-size:16px;
 }
 
-/* PANEL OVERLAY */
+/* OVERLAY */
 .overlay{
     position:fixed;
     top:0;
@@ -56,24 +56,17 @@ h1{
     padding:20px;
 }
 
-.panel h2{
-    margin-bottom:15px;
-}
-
-/* SLIDERS */
-input[type=range]{
+input{
     width:100%;
 }
 
-/* BOTON */
-.guardar{
+button{
     width:100%;
     padding:15px;
     border:none;
     border-radius:10px;
     background:#19a7ce;
     color:white;
-    font-size:16px;
     margin-top:15px;
 }
 </style>
@@ -84,51 +77,96 @@ input[type=range]{
 <h1>SENSI ELITE 🔥</h1>
 
 <div class="grid">
-    <div class="btn" onclick="abrirPanel()">🐉 Dragon Headshot</div>
-    <div class="btn" onclick="abrirPanel()">😈 Demon Aimlock</div>
-    <div class="btn" onclick="abrirPanel()">👻 Ghost Precision</div>
-    <div class="btn" onclick="abrirPanel()">☠️ Toxic Destroyer</div>
+<div class="btn" onclick="abrirPanel('dragon')">🐉 Dragon Headshot</div>
+<div class="btn" onclick="abrirPanel('demon')">😈 Demon Aimlock</div>
+
+<div class="btn" onclick="abrirPanel('ghost')">👻 Ghost Precision</div>
+<div class="btn" onclick="abrirPanel('toxic')">☠️ Toxic Destroyer</div>
+
+<div class="btn" onclick="abrirPanel('lgang')">🔥 L-Gang Pro</div>
+<div class="btn" onclick="abrirPanel('free')">🎯 Freestyle God</div>
+
+<div class="btn" onclick="abrirPanel('suprema')">⚡ Suprema Ultra</div>
+<div class="btn" onclick="abrirPanel('panel')">🧠 Panel Hacker</div>
+
+<div class="btn" onclick="abrirPanel('insana')">👹 Insana Max</div>
+<div class="btn" onclick="abrirPanel('moto')">📱 Motorola Pro</div>
+
+<div class="btn" onclick="abrirPanel('hz')">⚙️ HZ Pro</div>
+<div class="btn" onclick="abrirPanel('xiaomi')">➡️ Xiaomi Killer</div>
+
+<div class="btn" onclick="abrirPanel('p90')">🔫 P90 Destroyer</div>
 </div>
 
 <!-- PANEL -->
 <div id="overlay" class="overlay" onclick="cerrarPanel(event)">
-    <div class="panel">
+<div class="panel">
 
-        <h2>Ajustes de sensibilidad</h2>
+<h2>Ajustes de sensibilidad</h2>
 
-        <p>General: <span id="g">173</span></p>
-        <input type="range" min="0" max="200" value="173" oninput="g.innerText=this.value">
+<p>General: <span id="g"></span></p>
+<input type="range" min="0" max="200" oninput="g.innerText=this.value">
 
-        <p>Punto rojo: <span id="p">147</span></p>
-        <input type="range" min="0" max="200" value="147" oninput="p.innerText=this.value">
+<p>Punto rojo: <span id="p"></span></p>
+<input type="range" min="0" max="200" oninput="p.innerText=this.value">
 
-        <p>Mira 2x: <span id="m2">128</span></p>
-        <input type="range" min="0" max="200" value="128" oninput="m2.innerText=this.value">
+<p>Mira 2x: <span id="m2"></span></p>
+<input type="range" min="0" max="200" oninput="m2.innerText=this.value">
 
-        <p>Mira 4x: <span id="m4">185</span></p>
-        <input type="range" min="0" max="200" value="185" oninput="m4.innerText=this.value">
+<p>Mira 4x: <span id="m4"></span></p>
+<input type="range" min="0" max="200" oninput="m4.innerText=this.value">
 
-        <p>Mira Franco: <span id="mf">45</span></p>
-        <input type="range" min="0" max="200" value="45" oninput="mf.innerText=this.value">
+<p>Mira Franco: <span id="mf"></span></p>
+<input type="range" min="0" max="200" oninput="mf.innerText=this.value">
 
-        <p>Cámara Libre: <span id="cl">0</span></p>
-        <input type="range" min="0" max="200" value="0" oninput="cl.innerText=this.value">
+<p>Cámara Libre: <span id="cl"></span></p>
+<input type="range" min="0" max="200" oninput="cl.innerText=this.value">
 
-        <button class="guardar">Guardar Configuración</button>
+<button>Guardar Configuración</button>
 
-    </div>
+</div>
 </div>
 
 <script>
-function abrirPanel(){
-    document.getElementById("overlay").style.display="flex";
+
+// CONFIGURACIONES
+const configs = {
+dragon:[173,147,128,185,45,0],
+demon:[160,140,120,170,50,10],
+ghost:[180,150,130,190,40,5],
+toxic:[165,135,125,175,60,15],
+lgang:[170,145,135,180,55,10],
+free:[175,155,140,185,50,5],
+suprema:[190,160,150,200,60,20],
+panel:[150,130,110,160,45,0],
+insana:[185,165,145,195,55,10],
+moto:[140,120,100,150,40,0],
+hz:[155,135,115,165,50,5],
+xiaomi:[145,125,105,155,45,0],
+p90:[200,180,160,200,70,20]
+};
+
+function abrirPanel(tipo){
+let c = configs[tipo];
+
+let sliders = document.querySelectorAll("input");
+
+g.innerText=c[0]; sliders[0].value=c[0];
+p.innerText=c[1]; sliders[1].value=c[1];
+m2.innerText=c[2]; sliders[2].value=c[2];
+m4.innerText=c[3]; sliders[3].value=c[3];
+mf.innerText=c[4]; sliders[4].value=c[4];
+cl.innerText=c[5]; sliders[5].value=c[5];
+
+document.getElementById("overlay").style.display="flex";
 }
 
 function cerrarPanel(e){
-    if(e.target.id === "overlay"){
-        document.getElementById("overlay").style.display="none";
-    }
+if(e.target.id==="overlay"){
+document.getElementById("overlay").style.display="none";
 }
+}
+
 </script>
 
 </body>
