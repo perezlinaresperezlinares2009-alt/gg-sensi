@@ -33,20 +33,13 @@ button {
   font-size: 14px;
 }
 
-/* PANEL */
-.panel {
-  position: fixed;
-  bottom: -100%;
-  left: 0;
-  width: 100%;
-  background: #111;
+/* PANEL ABAJO */
+.resultado {
+  margin: 20px;
   padding: 20px;
-  border-radius: 20px 20px 0 0;
+  background: #16223a;
+  border-radius: 15px;
   transition: 0.3s;
-}
-
-.panel.activo {
-  bottom: 0;
 }
 </style>
 </head>
@@ -56,34 +49,30 @@ button {
 <h1>SENSI ELITE 🔥</h1>
 
 <div class="botones">
-  <!-- NUEVAS -->
-  <button onclick="abrirPanel('dragon')">🐉 Dragon Headshot</button>
-  <button onclick="abrirPanel('demon')">😈 Demon Aimlock</button>
-  <button onclick="abrirPanel('ghost')">👻 Ghost Precision</button>
-  <button onclick="abrirPanel('toxic')">☠️ Toxic Destroyer</button>
+  <button onclick="mostrar('dragon')">🐉 Dragon Headshot</button>
+  <button onclick="mostrar('demon')">😈 Demon Aimlock</button>
+  <button onclick="mostrar('ghost')">👻 Ghost Precision</button>
+  <button onclick="mostrar('toxic')">☠️ Toxic Destroyer</button>
 
-  <!-- ANTIGUAS -->
-  <button onclick="abrirPanel('freestyle')">🔥 Sensi Freestyle</button>
-  <button onclick="abrirPanel('suprema')">⚡ Sensi Suprema</button>
-  <button onclick="abrirPanel('lgang')">💀 Sensibilidad L-Gang</button>
-  <button onclick="abrirPanel('panel')">🎯 Sensi Panel</button>
+  <button onclick="mostrar('freestyle')">🔥 Sensi Freestyle</button>
+  <button onclick="mostrar('suprema')">⚡ Sensi Suprema</button>
+  <button onclick="mostrar('lgang')">💀 Sensibilidad L-Gang</button>
+  <button onclick="mostrar('panel')">🎯 Sensi Panel</button>
 </div>
 
-<!-- PANEL -->
-<div id="panel" class="panel">
-  <div id="contenido"></div>
+<!-- RESULTADO ABAJO -->
+<div id="resultado" class="resultado">
+  <h2>🔥 Panel</h2>
+  <p>Config aquí...</p>
 </div>
 
 <script>
-const panel = document.getElementById("panel");
-const contenido = document.getElementById("contenido");
+const resultado = document.getElementById("resultado");
 
-// ABRIR PANEL
-function abrirPanel(tipo) {
-  panel.classList.add("activo");
+function mostrar(tipo) {
 
   if (tipo === "dragon") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>🐉 Dragon Headshot</h2>
       General: 100<br>
       Punto Rojo: 100<br>
@@ -93,7 +82,7 @@ function abrirPanel(tipo) {
   }
 
   if (tipo === "demon") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>😈 Demon Aimlock</h2>
       General: 99<br>
       Punto Rojo: 95<br>
@@ -103,7 +92,7 @@ function abrirPanel(tipo) {
   }
 
   if (tipo === "ghost") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>👻 Ghost Precision</h2>
       General: 97<br>
       Punto Rojo: 93<br>
@@ -113,7 +102,7 @@ function abrirPanel(tipo) {
   }
 
   if (tipo === "toxic") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>☠️ Toxic Destroyer</h2>
       General: 100<br>
       Punto Rojo: 98<br>
@@ -123,7 +112,7 @@ function abrirPanel(tipo) {
   }
 
   if (tipo === "freestyle") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>🔥 Freestyle Insano</h2>
       General: 100<br>
       Punto Rojo: 95<br>
@@ -133,7 +122,7 @@ function abrirPanel(tipo) {
   }
 
   if (tipo === "suprema") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>⚡ Suprema Demoníaca</h2>
       General: 98<br>
       Punto Rojo: 92<br>
@@ -143,7 +132,7 @@ function abrirPanel(tipo) {
   }
 
   if (tipo === "lgang") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>💀 L-Gang Pro Max</h2>
       General: 100<br>
       Punto Rojo: 100<br>
@@ -153,7 +142,7 @@ function abrirPanel(tipo) {
   }
 
   if (tipo === "panel") {
-    contenido.innerHTML = `
+    resultado.innerHTML = `
       <h2>🎯 Panel Destructor</h2>
       HUD: 70%<br>
       Botón disparo: 60%<br>
@@ -161,13 +150,6 @@ function abrirPanel(tipo) {
     `;
   }
 }
-
-// CERRAR AL TOCAR FUERA
-document.addEventListener("click", function(e) {
-  if (!panel.contains(e.target) && !e.target.closest("button")) {
-    panel.classList.remove("activo");
-  }
-});
 </script>
 
 </body>
