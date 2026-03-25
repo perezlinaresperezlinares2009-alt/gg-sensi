@@ -13,17 +13,14 @@ body{
     color:white;
 }
 
-/* CONTENEDOR */
 .container{
     padding:20px;
 }
 
-/* TITULO */
 h1{
     margin-bottom:15px;
 }
 
-/* BUSCADOR */
 input{
     width:100%;
     padding:12px;
@@ -48,7 +45,7 @@ button{
     font-size:16px;
 }
 
-/* FONDO OSCURO */
+/* FONDO */
 #fondo{
     display:none;
     position:fixed;
@@ -78,7 +75,6 @@ button{
     margin-top:0;
 }
 </style>
-
 </head>
 
 <body>
@@ -99,7 +95,8 @@ button{
 <!-- FONDO -->
 <div id="fondo" onclick="cerrar()"></div>
 
-<!-- MODALES -->
+<!-- SENSIS -->
+
 <div id="free" class="sensi">
     <h3>🔥 Freestyle</h3>
     <p>General: 180</p>
@@ -116,9 +113,15 @@ button{
     <p>Mira 4x: 170</p>
 </div>
 
+<!-- 🔥 L-GANG CON TU IMAGEN -->
 <div id="lgang" class="sensi">
     <h3>🔥 L-Gang</h3>
-    <p>Config aquí...</p>
+    <p>General: 180</p>
+    <p>Punto rojo: 185</p>
+    <p>Mira 2x: 150</p>
+    <p>Mira 4x: 175</p>
+    <p>Mira francotirador: 120</p>
+    <p>Free Camera: 170</p>
 </div>
 
 <div id="panel" class="sensi">
@@ -128,20 +131,18 @@ button{
 
 <script>
 function abrir(id){
-    // ocultar todos
-    let sensis = document.querySelectorAll('.sensi');
-    sensis.forEach(s => s.style.display = 'none');
+    document.querySelectorAll('.sensi').forEach(s=>{
+        s.style.display = 'none';
+    });
 
-    // mostrar el seleccionado
     document.getElementById(id).style.display = 'block';
-
-    // mostrar fondo
     document.getElementById('fondo').style.display = 'block';
 }
 
 function cerrar(){
-    let sensis = document.querySelectorAll('.sensi');
-    sensis.forEach(s => s.style.display = 'none');
+    document.querySelectorAll('.sensi').forEach(s=>{
+        s.style.display = 'none';
+    });
 
     document.getElementById('fondo').style.display = 'none';
 }
