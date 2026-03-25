@@ -31,10 +31,6 @@ body{
     cursor:pointer;
 }
 
-.tab.active{
-    background:#19a7ce;
-}
-
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -91,8 +87,8 @@ button{
 <div class="header">GG SENSI 🔥</div>
 
 <div class="tabs">
-<div class="tab active" onclick="mostrar('top', this)">🔥 Top</div>
-<div class="tab" onclick="mostrar('guardados', this)">💾 Guardados</div>
+<div class="tab" onclick="mostrar('top')">🔥 Top</div>
+<div class="tab" onclick="mostrar('guardados')">💾 Guardados</div>
 <div class="tab" onclick="vip()">👑 VIP</div>
 </div>
 
@@ -110,7 +106,6 @@ button{
 
 </div>
 
-<!-- GUARDADOS -->
 <div id="guardados" class="grid" style="display:none">
 <div class="btn">No tienes guardados</div>
 </div>
@@ -128,103 +123,4 @@ button{
 <input type="range" max="200" oninput="p.innerText=this.value">
 
 <p>Mira 2x <span id="m2"></span></p>
-<input type="range" max="200" oninput="m2.innerText=this.value">
-
-<p>Mira 4x <span id="m4"></span></p>
-<input type="range" max="200" oninput="m4.innerText=this.value">
-
-<p>Mira Franco <span id="mf"></span></p>
-<input type="range" max="200" oninput="mf.innerText=this.value">
-
-<p>Cámara Libre <span id="cl"></span></p>
-<input type="range" max="200" oninput="cl.innerText=this.value">
-
-<h4>Dispositivo</h4>
-<p>DPI: <span id="dpi"></span></p>
-<p>Tamaño Botón: <span id="boton"></span></p>
-
-<button>Guardar Configuración</button>
-
-</div>
-</div>
-
-<script>
-
-// 🔥 SENSIS
-const sensis = {
-lince:[145,124,179,162,101,100,300,55],
-marechal:[175,126,158,175,185,171,499,58],
-two9:[195,70,160,181,27,0,500,36],
-santana:[195,173,158,190,22,84,735,61],
-boyka:[200,96,42,68,54,58,450,44],
-ruso:[200,200,173,163,163,159,1500,100]
-};
-
-function abrir(tipo){
-let s=sensis[tipo];
-let sliders=document.querySelectorAll("input");
-
-g.innerText=s[0]; sliders[0].value=s[0];
-p.innerText=s[1]; sliders[1].value=s[1];
-m2.innerText=s[2]; sliders[2].value=s[2];
-m4.innerText=s[3]; sliders[3].value=s[3];
-mf.innerText=s[4]; sliders[4].value=s[4];
-cl.innerText=s[5]; sliders[5].value=s[5];
-
-dpi.innerText=s[6];
-boton.innerText=s[7];
-
-panel.style.display="flex";
-}
-
-function cerrar(e){
-if(e.target.id==="panel"){
-panel.style.display="none";
-}
-}
-
-// CAMBIAR TABS
-function mostrar(id, el){
-top.style.display="none";
-guardados.style.display="none";
-
-document.getElementById(id).style.display="grid";
-
-// quitar active
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-el.classList.add("active");
-}
-
-// 🔐 VIP CORREGIDO
-function vip(){
-
-let hoy = new Date().toDateString();
-
-// reinicio diario
-if(localStorage.fecha !== hoy){
-    localStorage.intentos = 3;
-    localStorage.fecha = hoy;
-}
-
-let intentos = parseInt(localStorage.intentos) || 3;
-
-if(intentos <= 0){
-    alert("❌ Sin intentos hoy");
-    return;
-}
-
-let pass = prompt("🔐 Ingresa contraseña VIP:");
-
-if(pass === "44400978"){
-    alert("✅ Bienvenido VIP 🔥");
-}else{
-    intentos--;
-    localStorage.intentos = intentos;
-    alert("❌ Incorrecta | Intentos restantes: " + intentos);
-}
-}
-
-</script>
-
-</body>
-</html>
+<input type="range"
