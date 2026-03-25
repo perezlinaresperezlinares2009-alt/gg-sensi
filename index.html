@@ -1,9 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Prueba</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensi Elite PRO</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #0b1220, #1e2a47);
+      color: white;
+    }
+
+    .header {
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .search {
+      margin: 0 20px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: calc(100% - 40px);
+    }
+
+    .section {
+      padding: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .card {
+      background: #2b3a67;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background: #3f51b5;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      background: #111;
+    }
+
+    .bottom-nav div {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Funciona 😎</h1>
+
+  <div class="header">📱 Sensi Elite PRO</div>
+
+  <input class="search" placeholder="Buscar...">
+
+  <div class="section">
+    <h3>🔥 Más recomendado</h3>
+
+    <div class="cards">
+      <div class="card">Python</div>
+      <div class="card">Ethical Hacking</div>
+      <div class="card">Java</div>
+      <div class="card">HTML</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>🎓 Elección del aprendiz</h3>
+
+    <div class="cards">
+      <div class="card">JavaScript</div>
+      <div class="card">C++</div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div>🏠 Inicio</div>
+    <div>📊 Progreso</div>
+    <div>👑 Pro</div>
+  </div>
+
 </body>
-</html>
+        </html>
