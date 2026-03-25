@@ -2,35 +2,50 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>SENSI ELITE</title>
+<title>Sensi Elite</title>
 
 <style>
 body {
-    background: #0b1220;
-    color: white;
-    font-family: Arial;
-    text-align: center;
+  background: #0b1320;
+  font-family: Arial;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.botones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 20px;
 }
 
 button {
-    padding: 15px;
-    margin: 10px;
-    border-radius: 15px;
-    border: none;
-    background: #1e293b;
-    color: white;
-    width: 40%;
+  padding: 20px;
+  border-radius: 15px;
+  border: none;
+  background: #1c2a44;
+  color: white;
+  font-size: 16px;
 }
 
-.card {
-    margin-top: 20px;
-    padding: 20px;
-    background: #111827;
-    border-radius: 15px;
+/* PANEL */
+.panel {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  background: #111;
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
+  transition: 0.3s;
 }
 
-.hidden {
-    display: none;
+.panel.activo {
+  bottom: 0;
 }
 </style>
 </head>
@@ -39,69 +54,72 @@ button {
 
 <h1>SENSI ELITE 🔥</h1>
 
-<!-- BOTONES -->
-<button onclick="mostrar('dragon')">🐉 DRAGON HEADSHOT</button>
-<button onclick="mostrar('demon')">😈 DEMON AIMLOCK</button>
-<button onclick="mostrar('ghost')">👻 GHOST PRECISION</button>
-<button onclick="mostrar('toxic')">☠️ TOXIC DESTROYER</button>
+<div class="botones">
+  <button onclick="abrirPanel('freestyle')">Sensi Freestyle</button>
+  <button onclick="abrirPanel('suprema')">Sensi Suprema</button>
+  <button onclick="abrirPanel('lgang')">Sensibilidad L-Gang</button>
+  <button onclick="abrirPanel('panel')">Sensi Panel</button>
+</div>
 
-<!-- CONTENEDOR -->
-<div id="contenido" class="card hidden"></div>
+<!-- PANEL -->
+<div id="panel" class="panel">
+  <div id="contenido"></div>
+</div>
 
 <script>
-function mostrar(tipo) {
-    let contenido = document.getElementById("contenido");
+const panel = document.getElementById("panel");
+const contenido = document.getElementById("contenido");
 
-    let datos = {
+// ABRIR PANEL
+function abrirPanel(tipo) {
+  panel.classList.add("activo");
 
-        dragon: `
-        <h2>🐉 DRAGON HEADSHOT</h2>
-        General: 200<br>
-        Red Dot: 71<br>
-        2x: 169<br>
-        4x: 105<br>
-        Franco: 200<br>
-        Cámara: 200<br>
-        DPI: 351
-        `,
+  if (tipo === "freestyle") {
+    contenido.innerHTML = `
+      <h2>🔥 Freestyle Insano</h2>
+      General: 100<br>
+      Punto Rojo: 95<br>
+      Mira 2x: 90<br>
+      AWM: 70
+    `;
+  }
 
-        demon: `
-        <h2>😈 DEMON AIMLOCK</h2>
-        General: 174<br>
-        Red Dot: 45<br>
-        2x: 0<br>
-        4x: 149<br>
-        Franco: 137<br>
-        Cámara: 200<br>
-        DPI: 0
-        `,
+  if (tipo === "suprema") {
+    contenido.innerHTML = `
+      <h2>⚡ Suprema Demoníaca</h2>
+      General: 98<br>
+      Punto Rojo: 92<br>
+      Mira 2x: 85<br>
+      AWM: 65
+    `;
+  }
 
-        ghost: `
-        <h2>👻 GHOST PRECISION</h2>
-        General: 146<br>
-        Red Dot: 100<br>
-        2x: 100<br>
-        4x: 100<br>
-        Franco: 100<br>
-        Cámara: 100<br>
-        DPI: 231
-        `,
+  if (tipo === "lgang") {
+    contenido.innerHTML = `
+      <h2>💀 L-Gang Pro Max</h2>
+      General: 100<br>
+      Punto Rojo: 100<br>
+      Mira 2x: 95<br>
+      AWM: 75
+    `;
+  }
 
-        toxic: `
-        <h2>☠️ TOXIC DESTROYER</h2>
-        General: 176<br>
-        Red Dot: 166<br>
-        2x: 168<br>
-        4x: 73<br>
-        Franco: 36<br>
-        Cámara: 0<br>
-        DPI: 440
-        `
-    };
-
-    contenido.innerHTML = datos[tipo];
-    contenido.classList.remove("hidden");
+  if (tipo === "panel") {
+    contenido.innerHTML = `
+      <h2>🎯 Panel Destructor</h2>
+      HUD: 70%<br>
+      Botón disparo: 60%<br>
+      DPI recomendado: 600
+    `;
+  }
 }
+
+// CERRAR AL TOCAR FUERA
+document.addEventListener("click", function(e) {
+  if (!panel.contains(e.target) && !e.target.closest("button")) {
+    panel.classList.remove("activo");
+  }
+});
 </script>
 
 </body>
