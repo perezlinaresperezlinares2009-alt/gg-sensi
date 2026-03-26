@@ -10,175 +10,190 @@ body{
     font-family:sans-serif;
     background:linear-gradient(#071421,#0a2a3f);
     color:white;
-}
-
-.header{
     text-align:center;
-    padding:20px;
-    font-size:28px;
-    font-weight:bold;
 }
 
-.tabs{
+h1{margin-top:20px;}
+
+.menu{
     display:flex;
     justify-content:center;
     gap:10px;
-    margin-bottom:20px;
+    margin:15px;
 }
 
-.tab{
+.menu button{
     padding:10px 15px;
-    background:#123a55;
-    border-radius:20px;
-    cursor:pointer;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-    padding:15px;
-}
-
-.card{
-    background:#1a2f45;
-    padding:15px;
-    border-radius:15px;
-    text-align:center;
-    cursor:pointer;
-}
-
-.section{ display:none; padding:15px; }
-.active{ display:block; }
-
-.panel{
-    background:#102636;
-    padding:15px;
-    border-radius:15px;
-    margin-top:15px;
-}
-
-.btn{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
     border:none;
     border-radius:10px;
-    background:linear-gradient(90deg,#00ffcc,#00ccff);
+    background:#1e2d3d;
+    color:white;
+}
+
+.box{
+    display:none;
+}
+
+.activo{
+    display:block;
+}
+
+.sensi-btn{
+    margin:10px;
+    padding:15px;
+    background:#1e2d3d;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.panel{
+    background:#0e2233;
+    margin:20px;
+    padding:15px;
+    border-radius:15px;
+}
+
+input[type=range]{
+    width:80%;
+}
+
+button.guardar{
+    margin-top:15px;
+    padding:12px;
+    width:80%;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#00e0b8,#00bcd4);
+    color:black;
+    font-weight:bold;
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<div class="header">SENSI ELITE 🔥</div>
+<h1>GG SENSI 🔥</h1>
 
-<div class="tabs">
-    <div class="tab" onclick="mostrar('tops')">🔥 Tops</div>
-    <div class="tab" onclick="mostrar('guardados')">💾 Guardados</div>
-    <div class="tab" onclick="mostrar('vip')">🔒 VIP</div>
+<div class="menu">
+    <button onclick="mostrar('tops')">🔥 Tops</button>
+    <button onclick="mostrar('guardados')">💾 Guardados</button>
+    <button onclick="abrirVIP()">👑 VIP</button>
 </div>
 
 <!-- TOPS -->
-<div id="tops" class="section active">
-    <div class="grid">
-        <div class="card" onclick="cargarSensi('dragon')">🐉 Dragon Headshot</div>
-        <div class="card" onclick="cargarSensi('demon')">😈 Demon Aimlock</div>
-        <div class="card" onclick="cargarSensi('ghost')">👻 Ghost Precision</div>
-        <div class="card" onclick="cargarSensi('toxic')">☠️ Toxic Destroyer</div>
-    </div>
-
-    <!-- PANEL DONDE SALE LA SENSI -->
-    <div class="panel" id="panelSensi">
-        <h3>Sensibilidad</h3>
-        <p id="datos">Selecciona una sensi...</p>
-
-        <button class="btn" onclick="guardar()">Guardar</button>
-    </div>
-</div>
-
-<!-- GUARDADOS -->
-<div id="guardados" class="section">
-    <h3>Guardados</h3>
-    <div id="lista"></div>
+<div id="tops" class="box activo">
+    <div class="sensi-btn" onclick="cargar('brasil')">🇧🇷 Sensi Brasileña</div>
+    <div class="sensi-btn" onclick="cargar('temu')">😈 White Temu</div>
 </div>
 
 <!-- VIP -->
-<div id="vip" class="section">
-    <input type="password" id="pass" placeholder="Contraseña">
-    <button class="btn" onclick="entrarVIP()">Entrar</button>
+<div id="vip" class="box">
+    <div class="sensi-btn" onclick="cargar('lgang')">🔥 L-Gang Pro</div>
+    <div class="sensi-btn" onclick="cargar('white')">⚪ White 444</div>
+    <div class="sensi-btn" onclick="cargar('hector')">👑 Mr Hector</div>
+</div>
 
-    <div id="vipContenido" style="display:none;">
-        <h3>Sensis VIP 🔥</h3>
-        <p onclick="cargarSensi('vip1')">🔥 VIP PRO MAX</p>
-    </div>
+<!-- GUARDADOS -->
+<div id="guardados" class="box">
+    <h3>Guardados</h3>
+    <div id="listaGuardados"></div>
+</div>
+
+<!-- PANEL -->
+<div class="panel">
+    <p>General <span id="gVal">100</span></p>
+    <input type="range" id="general" min="0" max="200">
+
+    <p>Punto rojo <span id="rVal">100</span></p>
+    <input type="range" id="rojo" min="0" max="200">
+
+    <p>Mira 2x <span id="m2Val">100</span></p>
+    <input type="range" id="m2" min="0" max="200">
+
+    <p>Mira 4x <span id="m4Val">100</span></p>
+    <input type="range" id="m4" min="0" max="200">
+
+    <p>Mira Franco <span id="mfVal">100</span></p>
+    <input type="range" id="mf" min="0" max="200">
+
+    <p>Cámara Libre <span id="cVal">100</span></p>
+    <input type="range" id="camara" min="0" max="200">
+
+    <button class="guardar" onclick="guardar()">Guardar</button>
 </div>
 
 <script>
 
-// CAMBIAR SECCIONES
+let vipActivo = false;
+
 function mostrar(id){
-    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+    document.querySelectorAll('.box').forEach(e=>e.classList.remove('activo'));
+    document.getElementById(id).classList.add('activo');
 }
 
-// BASE DE SENSIS
-let sensis = {
-    dragon: "General: 100 | Punto rojo: 95 | Mira 2x: 90 | Mira 4x: 85",
-    demon: "General: 100 | Punto rojo: 98 | Mira 2x: 92 | Mira 4x: 88",
-    ghost: "General: 95 | Punto rojo: 90 | Mira 2x: 85 | Mira 4x: 80",
-    toxic: "General: 100 | Punto rojo: 100 | Mira 2x: 95 | Mira 4x: 90",
-    vip1: "General: 100 | Punto rojo: 100 | Mira 2x: 100 | Mira 4x: 100 🔥"
-};
+function abrirVIP(){
+    let pass = prompt("Contraseña VIP:");
+    if(pass==="44400978"){
+        vipActivo=true;
+        mostrar('vip');
+    }else{
+        alert("Contraseña incorrecta");
+    }
+}
 
-let actual = "";
+// SENSIS
+function cargar(tipo){
+    let data = {
+        brasil:[195,173,158,190,22,84],
+        temu:[198,180,164,184,200,200],
+        lgang:[175,86,171,165,158,174],
+        white:[156,133,60,118,31,144],
+        hector:[100,100,100,100,100,100]
+    };
 
-// MOSTRAR SENSI AL HACER CLICK
-function cargarSensi(nombre){
-    actual = nombre;
-    document.getElementById("datos").innerText = sensis[nombre];
+    let s = data[tipo];
+
+    document.getElementById("general").value=s[0];
+    document.getElementById("rojo").value=s[1];
+    document.getElementById("m2").value=s[2];
+    document.getElementById("m4").value=s[3];
+    document.getElementById("mf").value=s[4];
+    document.getElementById("camara").value=s[5];
+
+    actualizar();
+}
+
+// ACTUALIZAR TEXTO
+document.querySelectorAll("input").forEach(i=>{
+    i.addEventListener("input", actualizar);
+});
+
+function actualizar(){
+    gVal.innerText=general.value;
+    rVal.innerText=rojo.value;
+    m2Val.innerText=m2.value;
+    m4Val.innerText=m4.value;
+    mfVal.innerText=mf.value;
+    cVal.innerText=camara.value;
 }
 
 // GUARDAR
 function guardar(){
-    if(actual === "") return;
+    let datos = `
+    General: ${general.value} |
+    Rojo: ${rojo.value} |
+    2x: ${m2.value} |
+    4x: ${m4.value}
+    `;
 
-    let lista = JSON.parse(localStorage.getItem("guardados") || "[]");
-    lista.push(sensis[actual]);
-    localStorage.setItem("guardados", JSON.stringify(lista));
+    let div = document.createElement("div");
+    div.className="sensi-btn";
+    div.innerText=datos;
 
-    alert("Guardado 🔥");
-    mostrarGuardados();
-}
-
-// MOSTRAR GUARDADOS
-function mostrarGuardados(){
-    let lista = JSON.parse(localStorage.getItem("guardados") || "[]");
-    let cont = document.getElementById("lista");
-    cont.innerHTML = "";
-
-    lista.forEach(item=>{
-        let p = document.createElement("p");
-        p.innerText = item;
-        cont.appendChild(p);
-    });
-}
-
-mostrarGuardados();
-
-// VIP
-function entrarVIP(){
-    let pass = document.getElementById("pass").value;
-
-    if(pass === "44400978"){
-        document.getElementById("vipContenido").style.display="block";
-        alert("VIP ACTIVADO 🔥");
-    } else {
-        alert("Incorrecto ❌");
-    }
+    document.getElementById("listaGuardados").appendChild(div);
 }
 
 </script>
 
 </body>
-    </html>
+        </html>
