@@ -1,133 +1,158 @@
 -- ==========================================
--- INYECTOR IA PROFESIONAL: "TODO EN UNO"
+-- INYECTOR IA DEFINITIVO (CONOCIMIENTO TOTAL)
 -- ==========================================
 local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
 local player = Players.LocalPlayer or Players.PlayerAdded:Wait()
 
--- 1. CREAR INTERFAZ PROFESIONAL (UI)
-local sg = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-sg.Name = "InyectorIA_Master"
+-- 1. INTERFAZ PROFESIONAL (UI)
+local sg = Instance.new("ScreenGui")
+sg.Name = "RobloxIA_Master_Panel"
 sg.ResetOnSpawn = false
+sg.Parent = player:WaitForChild("PlayerGui")
 
-local main = Instance.new("Frame", sg)
+local main = Instance.new("Frame")
 main.Size = UDim2.new(0, 280, 0, 420)
 main.Position = UDim2.new(0.05, 0, 0.2, 0)
-main.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
+main.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
 main.BorderSizePixel = 0
 main.Active = true
 main.Draggable = true
+main.Parent = sg
 
--- Decoración y Título
-local bar = Instance.new("Frame", main)
+-- Decoración Superior
+local bar = Instance.new("Frame")
 bar.Size = UDim2.new(1, 0, 0, 40)
-bar.BackgroundColor3 = Color3.fromRGB(45, 45, 75)
+bar.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
+bar.BorderSizePixel = 0
+bar.Parent = main
 
-local title = Instance.new("TextLabel", bar)
+local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 1, 0)
-title.Text = "IA MASTER INJECTOR 🧠"
-title.TextColor3 = Color3.new(1, 1, 1)
+title.Text = "ROBLOX AI MASTER 🧠"
+title.TextColor3 = Color3.fromRGB(0, 255, 200)
 title.Font = Enum.Font.GothamBold
 title.BackgroundTransparency = 1
+title.Parent = bar
 
--- 2. CUADRO DE ENTRADA (PEDIDO)
-local input = Instance.new("TextBox", main)
+-- 2. CUADRO DE ENTRADA (INTELIGENCIA ARTIFICIAL)
+local input = Instance.new("TextBox")
 input.Size = UDim2.new(0.9, 0, 0, 80)
 input.Position = UDim2.new(0.05, 0, 0.12, 0)
-input.PlaceholderText = "Escribe qué quieres (Ej: Simulador con Tienda y Dinero)..."
+input.PlaceholderText = "Pídeme cualquier juego (Ej: Simulador con Tienda y Monedas)..."
 input.TextWrapped = true
-input.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+input.Text = ""
+input.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
 input.TextColor3 = Color3.new(1, 1, 1)
 input.Font = Enum.Font.Gotham
+input.Parent = main
 
 -- 3. BOTÓN GENERAR (KIT PROFESIONAL)
-local btnGen = Instance.new("TextButton", main)
+local btnGen = Instance.new("TextButton")
 btnGen.Size = UDim2.new(0.9, 0, 0, 50)
 btnGen.Position = UDim2.new(0.05, 0, 0.35, 0)
-btnGen.Text = "GENERAR JUEGO (1 CR.)"
-btnGen.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+btnGen.Text = "GENERAR KIT (1 CR.)"
+btnGen.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
 btnGen.TextColor3 = Color3.new(1, 1, 1)
 btnGen.Font = Enum.Font.GothamBold
+btnGen.Parent = main
 
--- 4. BOTONES EXTRAS (COMPARTIR Y ADMIN)
-local btnShare = Instance.new("TextButton", main)
+-- 4. BOTÓN COMPARTIR (SISTEMA DE CRÉDITOS)
+local btnShare = Instance.new("TextButton")
 btnShare.Size = UDim2.new(0.9, 0, 0, 40)
 btnShare.Position = UDim2.new(0.05, 0, 0.55, 0)
-btnShare.Text = "🔗 COMPARTIR (+1 Cr.)"
-btnShare.BackgroundColor3 = Color3.fromRGB(60, 60, 80)
+btnShare.Text = "🔗 COMPARTIR (+1 Crédito)"
+btnShare.BackgroundColor3 = Color3.fromRGB(60, 60, 75)
 btnShare.TextColor3 = Color3.new(1, 1, 1)
+btnShare.Font = Enum.Font.Gotham
+btnShare.Parent = main
 
-local btnAdmin = Instance.new("TextButton", main)
+-- 5. BOTÓN MODO ADMIN (COMANDOS MASTER)
+local btnAdmin = Instance.new("TextButton")
 btnAdmin.Size = UDim2.new(0.9, 0, 0, 40)
 btnAdmin.Position = UDim2.new(0.05, 0, 0.68, 0)
 btnAdmin.Text = "⚡ MODO ADMIN (FLY/SPEED)"
-btnAdmin.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+btnAdmin.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
 btnAdmin.TextColor3 = Color3.new(1, 1, 1)
+btnAdmin.Font = Enum.Font.GothamBold
+btnAdmin.Parent = main
 
--- 5. LÓGICA DEL KIT PROFESIONAL (CONOCIMIENTO TOTAL)
-local function spawnProfessionalKit(pedido)
+-- 6. LÓGICA DE CONOCIMIENTO (KIT PROFESIONAL)
+local function spawnIAKit(pedido)
     pedido = pedido:lower()
-    local char = player.Character or player.CharacterAdded:Wait()
-    local pos = char.HumanoidRootPart.Position + Vector3.new(0, 0, 25)
+    local root = player.Character.HumanoidRootPart.Position
+    local kitPos = root + Vector3.new(0, 0, 25)
     
-    -- KIT SIMULADOR (Dinero + Leaderboard + Tienda)
+    -- CONOCIMIENTO: SIMULADOR (Leaderboard + Tienda)
     if pedido:find("simulador") or pedido:find("dinero") then
-        -- Crea Leaderstats (Dinero Real)
-        local s = Instance.new("Script", game.ServerScriptService)
-        s.Source = "game.Players.PlayerAdded:Connect(function(p) local f = Instance.new('Folder', p) f.Name = 'leaderstats' local m = Instance.new('IntValue', f) m.Name = 'Monedas' m.Value = 500 end)"
+        print("IA: Inyectando lógica de estadísticas y economía...")
+        
+        -- Crea Leaderstats (Servidor)
+        local s = Instance.new("Script", game:GetService("ServerScriptService"))
+        s.Source = [[
+            game.Players.PlayerAdded:Connect(function(p)
+                local stats = Instance.new("Folder", p)
+                stats.Name = "leaderstats"
+                local m = Instance.new("IntValue", stats)
+                m.Name = "Monedas"
+                m.Value = 1000
+            end)
+        ]]
         
         -- Spawnea Tienda Pro
         local store = Instance.new("Part", workspace)
         store.Name = "TiendaIA"
         store.Size = Vector3.new(15, 20, 15)
-        store.Position = pos
+        store.Position = kitPos
         store.BrickColor = BrickColor.new("Bright yellow")
         store.Anchored = true
         
-        local tag = Instance.new("BillboardGui", store)
-        tag.Size = UDim2.new(0, 100, 0, 50)
-        tag.Adornee = store
-        tag.AlwaysOnTop = true
-        local tl = Instance.new("TextLabel", tag)
-        tl.Size = UDim2.new(1, 0, 1, 0)
-        tl.Text = "TIENDA PROFESIONAL"
-        tl.TextColor3 = Color3.new(1, 0, 0)
+        local bgui = Instance.new("BillboardGui", store)
+        bgui.Size = UDim2.new(0, 150, 0, 50)
+        bgui.Adornee = store
+        bgui.AlwaysOnTop = true
+        local label = Instance.new("TextLabel", bgui)
+        label.Size = UDim2.new(1, 0, 1, 0)
+        label.Text = "TIENDA PROFESIONAL"
+        label.TextColor3 = Color3.new(1, 1, 1)
+        label.BackgroundTransparency = 1
         
-        print("Kit de Simulador con Dinero inyectado.")
-
-    -- KIT OBBY (Niveles + Checkpoints)
+    -- CONOCIMIENTO: OBBY/PARKOUR
     elseif pedido:find("obby") or pedido:find("parkour") then
-        for i = 1, 12 do
+        print("IA: Generando estructura de niveles...")
+        for i = 1, 15 do
             local p = Instance.new("Part", workspace)
             p.Size = Vector3.new(8, 1, 8)
-            p.Position = pos + Vector3.new(0, i * 2.5, i * 15)
+            p.Position = kitPos + Vector3.new(0, i * 2.5, i * 15)
             p.Anchored = true
             p.BrickColor = BrickColor.Random()
             p.Material = Enum.Material.Neon
         end
-        print("Kit de Obby de 12 niveles inyectado.")
     end
 end
 
--- FUNCIONALIDAD DE BOTONES
+-- 7. EVENTOS DE BOTONES
 btnGen.MouseButton1Click:Connect(function()
     if input.Text ~= "" then
-        btnGen.Text = "IA ANALIZANDO..."
+        btnGen.Text = "IA PROCESANDO..."
         task.wait(1.5)
-        spawnProfessionalKit(input.Text)
-        btnGen.Text = "KIT INYECTADO ✅"
+        spawnIAKit(input.Text)
+        btnGen.Text = "KIT GENERADO ✅"
         task.wait(2)
-        btnGen.Text = "GENERAR JUEGO (1 CR.)"
+        btnGen.Text = "GENERAR KIT (1 CR.)"
     end
 end)
 
 btnShare.MouseButton1Click:Connect(function()
     game:GetService("SocialService"):PromptGameInvite(player)
+    print("Abriendo menú de compartir para créditos...")
 end)
 
 btnAdmin.MouseButton1Click:Connect(function()
     player.Character.Humanoid.WalkSpeed = 120
-    player.Character.Humanoid.JumpPower = 200
-    btnAdmin.Text = "MODO ADMIN ON ✅"
+    player.Character.Humanoid.JumpPower = 250
+    btnAdmin.Text = "ADMIN ACTIVADO ✅"
+    print("Modo Admin: Velocidad y Salto mejorados")
 end)
 
-print("¡IA MASTER CARGADA DESDE GITHUB!")
+print("¡IA MASTER LOADED FROM GITHUB!")
